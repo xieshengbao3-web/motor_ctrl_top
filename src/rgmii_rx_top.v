@@ -89,7 +89,7 @@ u0_rx_eth_header_parse (
     .pc_mac_addr                       (pc_mac_addr               ),//i
     .eth_header_src_mac_addr           (eth_header_src_mac_addr   ),//o
     .eth_header_0806_check_ok          (eth_header_0806_check_ok  ),//o arp֡
-    .eth_header_0800_check_ok          (eth_header_0800_check_ok  ) //o
+    .eth_header_0800_check_ok          (eth_header_0800_check_ok  ) //o udp/icmp
 );
 
 rx_arp_parse
@@ -118,13 +118,13 @@ u0_rx_ip_header_parse (
     .rx_dv                             (rx_dv                     ),//i
     .eth_header_0800_check_ok          (eth_header_0800_check_ok  ),//i
     .pc_ip_addr                        (pc_ip_addr                ),//i
-    .ip_header_version_length          (ip_header_version_length  ),//o
-    .ip_header_service                 (ip_header_service         ),//o
+    // .ip_header_version_length          (ip_header_version_length  ),//o
+    // .ip_header_service                 (ip_header_service         ),//o
     .ip_header_total_length            (ip_header_total_length    ),//o
     .ip_header_identification          (ip_header_identification  ),//o
     .ip_header_flag_fragoffset         (ip_header_flag_fragoffset ),//o
     .ip_header_udp_check_ok            (ip_header_udp_check_ok    ),//o
-    .ip_header_icmp_check_ok           (ip_header_icmp_check_ok   ), //o
+    .ip_header_icmp_check_ok           (ip_header_icmp_check_ok   ),//o
     .ip_header_src_ip_addr             (ip_header_src_ip_addr     ) //o
 );
 
@@ -148,10 +148,10 @@ u0_rx_udp_header_parse(
     .rst_rxc                           (rst_rxc                   ),
     .rxd                               (rxd                       ),
     .rx_dv                             (rx_dv                     ),
-    .ip_header_udp_check_ok            (ip_header_udp_check_ok    ),
-    .pc_port_addr                      (pc_port_addr              ),
-    .udp_data_length                   (udp_data_length           ),
-    .udp_header_check_ok               (udp_header_check_ok       ) 
+    .ip_header_udp_check_ok            (ip_header_udp_check_ok    ),//i
+    .pc_port_addr                      (pc_port_addr              ),//o
+    .udp_data_length                   (udp_data_length           ),//o
+    .udp_header_check_ok               (udp_header_check_ok       )//o
 );
 
 rx_udp_data_parse u0_rx_udp_data_parse(

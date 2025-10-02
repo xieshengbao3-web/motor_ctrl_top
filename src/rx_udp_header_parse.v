@@ -8,9 +8,9 @@ module rx_udp_header_parse (
     input                               ip_header_udp_check_ok     ,
     output reg         [  15:0]         pc_port_addr               ,
     output reg         [  15:0]         udp_data_length            ,
-    output reg                          udp_header_check_ok         
+    output reg                          udp_header_check_ok
 );
-    
+
 reg                    [   3:0]         cnt                        ;
 reg                    [  15:0]         des_port_tmp               ;
 reg                    [  15:0]         src_port_tmp               ;
@@ -18,8 +18,8 @@ reg                    [  15:0]         src_port_tmp               ;
 
 
 
-localparam                              U_DLY =1                   ;
-    parameter                           FPGA_PORT = 16'd21105      ;
+localparam                              U_DLY =1               ;
+parameter                           FPGA_PORT = 16'd21105      ;
 
 
 always @(posedge clk_rxc or posedge rst_rxc) begin

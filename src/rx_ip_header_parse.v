@@ -7,8 +7,6 @@ module rx_ip_header_parse (
     input                               rx_dv                      ,
     input                               eth_header_0800_check_ok   ,
     input              [  31:0]         pc_ip_addr                 ,
-    output reg         [   7:0]         ip_header_version_length   ,
-    output reg         [   7:0]         ip_header_service          ,
     output reg         [  15:0]         ip_header_total_length     ,
     output reg         [  15:0]         ip_header_identification   ,
     output reg         [  15:0]         ip_header_flag_fragoffset  ,
@@ -18,7 +16,7 @@ module rx_ip_header_parse (
 );
     
 reg                    [   4:0]         cnt                        ;
-
+reg                    [   7:0]         ip_header_version_length   ;
 reg                    [   7:0]         ip_header_protocal_tmp     ;
 
 reg                    [  23:0]         ip_header_des_ip_addr_tmp  ;
@@ -42,7 +40,7 @@ always @(posedge clk_rxc or posedge rst_rxc) begin
 end
 
 
-//ip首部  版本号 首部长度
+//ip首部  版本号 ipv4 一般为4 首部长度 多少个32bit 一般为5
 always @(posedge clk_rxc or posedge rst_rxc) begin
     if(rst_rxc==1'b1)
     ip_header_version_length<= #U_DLY 8'd0;
@@ -51,14 +49,14 @@ always @(posedge clk_rxc or posedge rst_rxc) begin
     else ;
 end
 
-//ip首部  服务类型
-always @(posedge clk_rxc or posedge rst_rxc) begin
-    if(rst_rxc==1'b1)
-    ip_header_service<= #U_DLY 8'd0;
-    else if((eth_header_0800_check_ok==1'b1)&&(cnt==5'd1))
-    ip_header_service<= #U_DLY rxd;
-    else ;
-end
+// //ip首部  服务类型
+// always @(posedge clk_rxc or posedge rst_rxc) begin
+//     if(rst_rxc==1'b1)
+//     ip_header_service<= #U_DLY 8'd0;
+//     else if((eth_header_0800_check_ok==1'b1)&&(cnt==5'd1))
+//     ip_header_service<= #U_DLY rxd;
+//     else ;
+// end
 
 //ip首部 总长度，单位字节，包含ip首部20字节+udp/icmp首部8字节+udp/icmp数据
 always @(posedge clk_rxc or posedge rst_rxc) begin

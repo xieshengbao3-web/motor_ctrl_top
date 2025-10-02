@@ -153,8 +153,6 @@ rgmii_tx_top
     .FPGA_PORT                         (FPGA_PORT                 )
 )
 u0_rgmii_tx_top(
-    .clk0                              (clk0                      ),
-    .rst0                              (rst0                      ),
     .clk_rxc                           (clk_rxc                   ),
     .rst_rxc                           (rst_rxc                   ),
     //arp req

@@ -1,8 +1,6 @@
 `timescale 1ns/1ps
 
 module rgmii_tx_top(
-    input                               clk0                       ,
-    input                               rst0                       ,
     input                               clk_rxc                    ,
     input                               rst_rxc                    ,
     input              [  47:0]         pc_mac_addr                ,
