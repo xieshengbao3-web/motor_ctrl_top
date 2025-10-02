@@ -105,7 +105,7 @@ always @(posedge clk_rxc or posedge rst_rxc) begin
     else ;
 end
 
-// 校验pc ip地址
+// 校验pc ip地址 用于udp协议校验
 always @(posedge clk_rxc or posedge rst_rxc) begin
     if(rst_rxc==1'b1)
     ip_header_src_ip_addr_check_ok<= #U_DLY 1'b0;
