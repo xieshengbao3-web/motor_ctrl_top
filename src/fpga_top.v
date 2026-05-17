@@ -19,7 +19,27 @@ module fpga_top(
 
     output                              pin_rgmii_txc_xo           ,//rgmii tx
     output             [   3:0]         pin_rgmii_txd_xo           ,//rgmii tx
-    output                              pin_rgmii_tx_en_xo          //rgmii tx
+    output                              pin_rgmii_tx_en_xo         ,//rgmii tx
+    output                              pin_drv_ha_xo              ,
+    output                              pin_drv_la_xo              ,
+    output                              pin_drv_hb_xo              ,
+    output                              pin_drv_lb_xo              ,
+    output                              pin_drv_hc_xo              ,
+    output                              pin_drv_lc_xo              ,
+
+    output                              pin_adc_spi_csn_xo         ,
+    input                               pin_adc_spi_sdoa_xi        ,
+    input                               pin_adc_spi_sdob_xi        ,
+    output                              pin_adc_spi_mosi_xo        ,
+    output                              pin_adc_spi_sclk_xo        ,
+
+    output                              pin_drv_en_xo              ,
+    input                               pin_drv_fault_xi           ,
+    output                              pin_drv_spi_csn_xo         ,
+    output                              pin_drv_spi_sclk_xo        ,
+    output                              pin_drv_spi_mosi_xo        ,
+    input                               pin_drv_spi_miso_xi         ,
+    output              pin_test_t11_x0
 
              
 );
@@ -86,6 +106,34 @@ wire                   [  15:0]         sam_data0                  ;
 
 //phy rst_n
 assign pin_eth_rst_n_xo=1'b1;
+
+// assign pin_drv_ha_xo=1'b1;
+// assign pin_drv_la_xo=1'b0;
+// assign pin_drv_hb_xo=1'b1;
+// assign pin_drv_lb_xo=1'b0;
+// assign pin_drv_hc_xo=1'b0;
+// assign pin_drv_lc_xo=1'b1;
+
+assign pin_adc_spi_csn_xo=1'b0;
+assign pin_adc_spi_mosi_xo=1'b0;
+assign pin_adc_spi_sclk_xo=1'b0;
+
+assign pin_drv_en_xo=1'b1;
+assign pin_drv_spi_csn_xo=1'b1;
+assign pin_drv_spi_sclk_xo=1'b0;
+assign pin_drv_spi_mosi_xo=1'b0;
+assign pin_test_t11_x0=1'b0;
+
+sixstep_vf_lut u0_sixstep_vf_lut(
+    .clk_50m(clk0),
+    .rst_50m(rst0),
+    .drv_ha (pin_drv_ha_xo ),
+    .drv_la (pin_drv_la_xo ),
+    .drv_hb (pin_drv_hb_xo ),
+    .drv_lb (pin_drv_lb_xo ),
+    .drv_hc (pin_drv_hc_xo ),
+    .drv_lc (pin_drv_lc_xo )
+);
 
 clk_rst_top u0_clk_rst_top(
     .pin_clk_xi                        (pin_clk_xi                ),
